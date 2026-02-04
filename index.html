@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Harbor Plan</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="ambient"></div>
+    <header class="hero">
+      <div class="hero-text">
+        <p class="eyebrow">Harbor Plan</p>
+        <h1>Calm, clear routines for meals and movement.</h1>
+        <p class="subhead">
+          Plan a day that supports memory, energy, and dignity. Designed for caregivers and
+          people living with Alzheimer’s.
+        </p>
+        <div class="hero-actions">
+          <button id="printPlan" class="primary">Print or save today</button>
+          <button id="resetPlan" class="ghost">Start a new day</button>
+        </div>
+      </div>
+      <div class="hero-card">
+        <h2>Today at a glance</h2>
+        <div class="summary" id="summary"></div>
+      </div>
+    </header>
+
+    <main>
+      <section class="panel view-switcher">
+        <div class="panel-head">
+          <h2>Views</h2>
+          <p>Jump between today, week, routines, medication, and handoff.</p>
+        </div>
+        <div class="tabs" id="viewTabs">
+          <button class="tab active" data-view="today">Today</button>
+          <button class="tab" data-view="week">Week</button>
+          <button class="tab" data-view="routines">Routines</button>
+          <button class="tab" data-view="meds">Medication</button>
+          <button class="tab" data-view="handoff">Handoff</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Who is this plan for?</h2>
+          <p>Switch between caregiver detail view and a simplified view.</p>
+        </div>
+        <div class="toggle">
+          <button class="toggle-btn active" data-mode="caregiver">Caregiver view</button>
+          <button class="toggle-btn" data-mode="patient">Simple view</button>
+        </div>
+      </section>
+
+      <section class="grid view" data-view="today">
+        <div class="panel">
+          <div class="panel-head">
+            <h2>Meals</h2>
+            <p>Small, regular meals with hydration cues.</p>
+          </div>
+          <form id="mealForm" class="planner-form">
+            <label>
+              Meal name
+              <input type="text" name="title" placeholder="Breakfast: oatmeal & berries" required />
+            </label>
+            <label>
+              Time
+              <input type="time" name="time" required />
+            </label>
+            <label>
+              Day
+              <select name="day" class="day-select" required>
+                <option value="0">Sunday</option>
+                <option value="1">Monday</option>
+                <option value="2">Tuesday</option>
+                <option value="3">Wednesday</option>
+                <option value="4">Thursday</option>
+                <option value="5">Friday</option>
+                <option value="6">Saturday</option>
+              </select>
+            </label>
+            <label>
+              Support note
+              <input type="text" name="notes" placeholder="Warm tea, cut fruit, gentle prompt" />
+            </label>
+            <button type="submit" class="primary">Add meal</button>
+          </form>
+          <div id="mealList" class="list"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h2>Movement</h2>
+            <p>Light activity that feels safe and familiar.</p>
+          </div>
+          <form id="exerciseForm" class="planner-form">
+            <label>
+              Activity
+              <input type="text" name="title" placeholder="10 min walk in the garden" required />
+            </label>
+            <label>
+              Time
+              <input type="time" name="time" required />
+            </label>
+            <label>
+              Day
+              <select name="day" class="day-select" required>
+                <option value="0">Sunday</option>
+                <option value="1">Monday</option>
+                <option value="2">Tuesday</option>
+                <option value="3">Wednesday</option>
+                <option value="4">Thursday</option>
+                <option value="5">Friday</option>
+                <option value="6">Saturday</option>
+              </select>
+            </label>
+            <label>
+              Support note
+              <input type="text" name="notes" placeholder="Bring water, walk together" />
+            </label>
+            <button type="submit" class="primary">Add activity</button>
+          </form>
+          <div id="exerciseList" class="list"></div>
+        </div>
+      </section>
+
+      <section class="grid view" data-view="today">
+        <div class="panel">
+          <div class="panel-head">
+            <h2>Gentle reminders</h2>
+            <p>Simple prompts to keep the day anchored.</p>
+          </div>
+          <form id="reminderForm" class="planner-form">
+            <label>
+              Reminder
+              <input type="text" name="title" placeholder="Hydration check" required />
+            </label>
+            <label>
+              Time
+              <input type="time" name="time" required />
+            </label>
+            <label>
+              Day
+              <select name="day" class="day-select" required>
+                <option value="0">Sunday</option>
+                <option value="1">Monday</option>
+                <option value="2">Tuesday</option>
+                <option value="3">Wednesday</option>
+                <option value="4">Thursday</option>
+                <option value="5">Friday</option>
+                <option value="6">Saturday</option>
+              </select>
+            </label>
+            <label>
+              Tone
+              <select name="tone">
+                <option value="gentle">Gentle</option>
+                <option value="encouraging">Encouraging</option>
+                <option value="firm">Firm</option>
+              </select>
+            </label>
+            <button type="submit" class="primary">Add reminder</button>
+          </form>
+          <div id="reminderList" class="list"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h2>Caregiver notes</h2>
+            <p>Capture cues, stressors, and wins.</p>
+          </div>
+          <textarea id="careNotes" rows="10" placeholder="Example: Best energy after breakfast. Prefers music during walk."></textarea>
+          <div class="panel-actions">
+            <button id="saveNotes" class="primary">Save notes</button>
+            <span id="saveStatus" class="status">Not saved</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel safety view" data-view="today">
+        <div>
+          <h2>Safety quick check</h2>
+          <p>Keep these visible for anyone stepping in to help.</p>
+        </div>
+        <div class="safety-grid">
+          <label>
+            Preferred foods
+            <input type="text" id="prefFoods" placeholder="Soft foods, warm meals" />
+          </label>
+          <label>
+            Foods to avoid
+            <input type="text" id="avoidFoods" placeholder="Sticky textures" />
+          </label>
+          <label>
+            Mobility notes
+            <input type="text" id="mobilityNotes" placeholder="Use walker, steady pace" />
+          </label>
+          <label>
+            Emergency contact
+            <input type="text" id="emergencyContact" placeholder="Name + phone" />
+          </label>
+        </div>
+      </section>
+
+      <section class="panel view" data-view="week">
+        <div class="panel-head">
+          <h2>Week overview</h2>
+          <p>Scan the full week by day and by type.</p>
+        </div>
+        <div id="weekView" class="week-grid"></div>
+      </section>
+
+      <section class="panel view" data-view="routines">
+        <div class="panel-head">
+          <h2>Routine library</h2>
+          <p>Drop in gentle, familiar sequences with one click.</p>
+        </div>
+        <div class="routine-grid" id="routineGrid">
+          <article class="routine-card" data-routine="gentle-morning">
+            <h3>Gentle morning</h3>
+            <p>Breakfast, hydration, and a light stretch.</p>
+            <div class="routine-actions">
+              <select class="routine-day">
+                <option value="0">Sunday</option>
+                <option value="1">Monday</option>
+                <option value="2">Tuesday</option>
+                <option value="3">Wednesday</option>
+                <option value="4">Thursday</option>
+                <option value="5">Friday</option>
+                <option value="6">Saturday</option>
+              </select>
+              <button class="ghost routine-add" type="button">Add to day</button>
+            </div>
+          </article>
+          <article class="routine-card" data-routine="midday-move">
+            <h3>Midday movement</h3>
+            <p>Walk, balance check, and a snack.</p>
+            <div class="routine-actions">
+              <select class="routine-day">
+                <option value="0">Sunday</option>
+                <option value="1">Monday</option>
+                <option value="2">Tuesday</option>
+                <option value="3">Wednesday</option>
+                <option value="4">Thursday</option>
+                <option value="5">Friday</option>
+                <option value="6">Saturday</option>
+              </select>
+              <button class="ghost routine-add" type="button">Add to day</button>
+            </div>
+          </article>
+          <article class="routine-card" data-routine="evening-winddown">
+            <h3>Evening wind-down</h3>
+            <p>Soft dinner, calm reminder, and soothing music.</p>
+            <div class="routine-actions">
+              <select class="routine-day">
+                <option value="0">Sunday</option>
+                <option value="1">Monday</option>
+                <option value="2">Tuesday</option>
+                <option value="3">Wednesday</option>
+                <option value="4">Thursday</option>
+                <option value="5">Friday</option>
+                <option value="6">Saturday</option>
+              </select>
+              <button class="ghost routine-add" type="button">Add to day</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel view" data-view="meds">
+        <div class="panel-head">
+          <h2>Medication schedule</h2>
+          <p>Track meds alongside meals to reduce missed doses.</p>
+        </div>
+        <form id="medForm" class="planner-form">
+          <label>
+            Medication
+            <input type="text" name="title" placeholder="Donepezil" required />
+          </label>
+          <label>
+            Time
+            <input type="time" name="time" required />
+          </label>
+          <label>
+            Dosage
+            <input type="text" name="dosage" placeholder="5 mg" />
+          </label>
+          <label>
+            Day
+            <select name="day" class="day-select" required>
+              <option value="0">Sunday</option>
+              <option value="1">Monday</option>
+              <option value="2">Tuesday</option>
+              <option value="3">Wednesday</option>
+              <option value="4">Thursday</option>
+              <option value="5">Friday</option>
+              <option value="6">Saturday</option>
+            </select>
+          </label>
+          <label>
+            Instructions
+            <input type="text" name="notes" placeholder="With food, full glass of water" />
+          </label>
+          <button type="submit" class="primary">Add medication</button>
+        </form>
+        <div id="medList" class="list"></div>
+        <div class="panel-actions">
+          <button id="enableAlerts" class="ghost" type="button">Enable alerts</button>
+          <span id="alertStatus" class="status">Alerts off</span>
+        </div>
+        <p class="status">Alerts work while this page stays open.</p>
+      </section>
+
+      <section class="panel view" data-view="handoff">
+        <div class="panel-head">
+          <h2>Caregiver handoff</h2>
+          <p>Share a clear summary for the next shift.</p>
+        </div>
+        <textarea id="handoffText" rows="12" readonly></textarea>
+        <div class="panel-actions">
+          <button id="copyHandoff" class="primary" type="button">Copy summary</button>
+          <button id="printHandoff" class="ghost" type="button">Print summary</button>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        Harbor Plan is a planning helper and does not replace medical advice. For safety concerns,
+        check with a clinician.
+      </p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
